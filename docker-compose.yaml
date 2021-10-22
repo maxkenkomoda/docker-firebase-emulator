@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  firebase-emulator:
+    container_name: firebase
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - GCLOUD_PORJECT=${GCP_PROJECT_ID}
+      - GOOGLE_APPLICATION_CREDENTIALS=./sa.json
+    volumes:
+      - ../firebase/emulators/:/opt/workspace:cached
+      - ../firebase/bin/:/root.cached:cached
+      - ../firebase/config/:/root/.config:cached
+      - ./sa.json:/app/sa.json # service account
+    ports:
+      - 4000:4000 # Emulator Suite UI
+      - 5000:5000 # Firebase Hosting
+      - 5001:5001 # Clound Functions
+      - 9000:9000 # Realtime Database
+      - 9001:9001 # Auth
+      - 8081:8081 # Cloud Firestore
+      - 8085:8085 # Cloud Pub/Sub
+    working_dir: /opt/workspace
+    command: bash
+    # env_file:
+    #   - env.firebase
+    tty: true
