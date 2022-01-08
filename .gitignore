@@ -1,4 +1,8 @@
 .env
 sa.json
 env.firebase
+src/firebase/.vscode-server
+src/firebase/.cache
+src/firebase/.config
+/node_modules
 .firebaserc
